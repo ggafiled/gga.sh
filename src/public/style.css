@@ -1,0 +1,82 @@
+:root {
+    --colorShadeA: rgb(106, 163, 137);
+    --colorShadeB: rgb(121, 186, 156);
+    --colorShadeC: rgb(150, 232, 195);
+    --colorShadeD: rgb(187, 232, 211);
+    --colorShadeE: rgb(205, 255, 232);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("/images/bg.jpg") !important;
+    font-family: 'Ubuntu Condensed', sans-serif !important;
+}
+
+label {
+    color: white;
+}
+
+.vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh;
+    /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
+}
+
+input[type="*"] {
+    min-width: 350px;
+}
+
+.container {
+    max-width: 500px !important;
+}
+
+.login-btn {
+    font-family: Hack, monospace;
+    background: #bf0;
+    box-shadow: 8px 8px 0px rgba(134, 228, 134, 0.6);
+    color: #1d1d1d;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0.5rem;
+    border: 0;
+    transition: all 0.5s;
+    border-radius: 10px;
+    width: auto;
+    height: 50px;
+    position: relative;
+    min-width: 100px;
+}
+
+.login-btn::after {
+    content: "\f2f6";
+    border: 1 px solid black;
+    font-weight: 400;
+    position: absolute;
+    left: 80%;
+    top: 54%;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+}
+
+.login-btn:hover {
+    background: #bee264;
+    transition: all 0.5s;
+    border-radius: 10px;
+    box-shadow: 0px 6px 15px #d2eb93 61;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    color: #fff;
+}
+
+.login-btn:hover::after {
+    opacity: 1;
+    transition: all 0.5s;
+    color: #fff;
+}
