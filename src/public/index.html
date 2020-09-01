@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
-    <title>Shorter URL</title>
+    <title> Short URL with gga.sh </title>
 </head>
 
 <body>
@@ -24,20 +25,19 @@
         <div class="vertical-center">
             <div class="container">
                 <form v-on:submit.prevent="onSubmit">
-                    <img class="mx-auto p-0 m-0 img-responsive" src="/images/logo.png" alt="gga short url logo" width="100%" height="150px">
+                    <img class="animate__animated animate__bounce mx-auto p-0 m-0 img-responsive" src="/images/logo.png" alt="gga short url logo" width="100%" height="150px">
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Your long url</label>
-                        <input type="text" class="form-control" v-focus id="formGroupExampleInput2" v-model="url" placeholder="Paste your long url.">
+                        <input type="text" class="form-control" v-focus id="formGroupExampleInput2" v-model="url" placeholder="Paste your long url." autocomplete="off">
                     </div>
                     <div class="form-group" v-if="error">
-                        <div class="alert alert-danger" role="alert">
+                        <div id="alertdanger" class="alert alert-danger" role="alert">
                             {{ error }}
                         </div>
                     </div>
                     <div class="form-group" v-if="result && statusCode == 200">
-                        <div class="alert alert-success" role="alert">
-                            <a id="shorturl" :href="shorturl" target="blank">{{ shorturl }}</a>
-                            <button v-on:click.prevent="copyFunction()">Copy text</button>
+                        <div class="alert alert-success mx-auto text-center" role="alert">
+                            <a id="answer" :href="shorturl" target="blank">{{ shorturl }}</a>
                         </div>
                     </div>
                     <div class="form-group">

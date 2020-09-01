@@ -1,4 +1,4 @@
-var vm = new Vue({
+new Vue({
     el: '#app',
     data() {
         return {
@@ -6,7 +6,7 @@ var vm = new Vue({
             error: null,
             result: null,
             statusCode: null,
-            shorturl: ''
+            shorturl: '',
         }
     },
     methods: {
@@ -15,8 +15,12 @@ var vm = new Vue({
         },
         onSubmit() {
             this.error = null;
+            this.result = null;
+            this.statusCode = null;
+            this.shorturl = '';
+
             if (this.url.trim() == "") {
-                this.error = "url input can't be empty.";
+                this.setErrormessage("url input can't be empty.");
                 document.getElementById("formGroupExampleInput2").focus();
                 return;
             }
@@ -35,39 +39,46 @@ var vm = new Vue({
                     this.log(`[RN] response status code is ${response.status} `);
                     this.statusCode = response.status;
                     if (this.statusCode >= 500 && this.statusCode <= 599) {
-                        this.error = "Sorry server is closing already.";
-                        return;
-                    } else if (this.statusCode == 429) {
-                        this.error = "Too many accounts created from this IP, please try again after an 2 minutes.";
+                        console.log("[RN] running in 500 condition");
+                        this.setErrormessage("Sorry server is closing already.");
                         return;
                     }
                     return response.json();
                 })
                 .then(data => {
-                    this.result = data;
-                    this.shorturl = window.location + data.slug;
-                    this.log(`[RN] response data ${data}`);
+                    if (data) {
+                        console.log(`[DEBUG] ${data}`);
+                        this.result = data;
+                        this.shorturl = window.location + data.slug;
+                        this.log(`[RN] response data ${data}`);
+                    }
+
+                    if (this.statusCode == 429) {
+                        console.log(`[RN] running in 429 condition`);
+                        this.setErrormessage("Too many accounts created from this IP, please try again after an 2 minutes.");
+                    }
                 })
                 .catch(error => {
                     this.log(error);
                     this.error = error;
                 });
         },
-        copyFunction() {
-            var copyText = document.getElementById("shorturl");
-
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-            /* Copy the text inside the text field */
-            document.execCommand("copy");
-
-            /* Alert the copied text */
-            alert("Copied the text: " + copyText.value);
-        }
+        showErrormessage() {
+            console.log("[IV] dispatching fade-done event hide.");
+            this.error = null;
+        },
+        setErrormessage(err) {
+            this.error = err;
+            var vm = this;
+            setTimeout(function() {
+                vm.showErrormessage();
+            }, 3000);
+        },
     },
     created() {
         this.log("[VM] starting project.");
-    }
+    },
+    mounted() {
+        document.getElementById("formGroupExampleInput2").focus();
+    },
 });
