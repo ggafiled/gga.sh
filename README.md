@@ -19,6 +19,9 @@ Development utilities:
   * ☕️ Simple, flexible, fun JavaScript test framework for Node.js & The Browser ☕️
 * [supertest](https://www.npmjs.com/package/supertest)
   * HTTP assertions made easy via superagent.
+  
+## Preview
+![preview image](https://github.com/ggafiled/gga.sh/blob/master/src/public/images/web_preview.PNG)
 
 ## Setup
 
