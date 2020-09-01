@@ -20,6 +20,9 @@ Development utilities:
 * [supertest](https://www.npmjs.com/package/supertest)
   * HTTP assertions made easy via superagent.
   
+## Demo Link
+ Click for see more detail. https://gga-sh.herokuapp.com/
+  
 ## Preview
 ![preview image](https://github.com/ggafiled/gga.sh/blob/master/src/public/images/web_preview.PNG)
 
