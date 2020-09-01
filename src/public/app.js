@@ -21,7 +21,7 @@ var vm = new Vue({
             }
 
             this.log("[RN] submitForm was clicked.");
-            fetch("http://localhost:5000/api/v1/urls", {
+            fetch(window.location + "api/v1/urls", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
