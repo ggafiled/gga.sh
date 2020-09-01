@@ -24,7 +24,7 @@ Development utilities:
  Click for see more detail. https://gga-sh.herokuapp.com/
   
 ## Preview
-![preview image](https://github.com/ggafiled/gga.sh/blob/master/src/public/images/web_preview.PNG)
+![preview image](https://github.com/ggafiled/gga.sh/blob/master/src/public/images/web_preview1.PNG)
 
 ## Setup
 
