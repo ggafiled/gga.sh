@@ -3,7 +3,7 @@ const express = require("express");
 const cryptoRandomString = require('crypto-random-string');
 const faker = require("faker");
 const rateLimit = require("express-rate-limit");
-const db = require("monk")(process.env.MONGO_URL);
+const db = require("monk")(process.env.MONGODB_URI);
 const dbcollection = db.get("ggaurls");
 dbcollection.createIndex({
     slug: 1
