@@ -36,7 +36,8 @@
                     </div>
                     <div class="form-group" v-if="result && statusCode == 200">
                         <div class="alert alert-success" role="alert">
-                            {{ result }}
+                            <a id="shorturl" :href="shorturl" target="blank">{{ shorturl }}</a>
+                            <button v-on:click.prevent="copyFunction()">Copy text</button>
                         </div>
                     </div>
                     <div class="form-group">

@@ -6,6 +6,7 @@ var vm = new Vue({
             error: null,
             result: null,
             statusCode: null,
+            shorturl: ''
         }
     },
     methods: {
@@ -44,6 +45,7 @@ var vm = new Vue({
                 })
                 .then(data => {
                     this.result = data;
+                    this.shorturl = window.location + data.slug;
                     this.log(`[RN] response data ${data}`);
                 })
                 .catch(error => {
@@ -51,6 +53,19 @@ var vm = new Vue({
                     this.error = error;
                 });
         },
+        copyFunction() {
+            var copyText = document.getElementById("shorturl");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+        }
     },
     created() {
         this.log("[VM] starting project.");
