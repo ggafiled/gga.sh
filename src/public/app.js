@@ -33,8 +33,11 @@ var vm = new Vue({
                 .then(response => {
                     this.log(`[RN] response status code is ${response.status} `);
                     this.statusCode = response.status;
-                    if (this.statusCode != 200) {
+                    if (this.statusCode >= 500 && this.statusCode <= 599) {
                         this.error = "Sorry server is closing already.";
+                        return;
+                    } else if (this.statusCode == 429) {
+                        this.error = "Too many accounts created from this IP, please try again after an 2 minutes.";
                         return;
                     }
                     return response.json();
@@ -44,8 +47,8 @@ var vm = new Vue({
                     this.log(`[RN] response data ${data}`);
                 })
                 .catch(error => {
-                    this.log(error.message.toString());
-                    this.error = error.message.toString();
+                    this.log(error);
+                    this.error = error;
                 });
         },
     },

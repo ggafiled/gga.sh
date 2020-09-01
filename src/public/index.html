@@ -27,7 +27,7 @@
                     <img class="mx-auto p-0 m-0 img-responsive" src="/images/logo.png" alt="gga short url logo" width="100%" height="150px">
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Your long url</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput2" v-model="url" placeholder="Paste your long url." autofocus>
+                        <input type="text" class="form-control" v-focus id="formGroupExampleInput2" v-model="url" placeholder="Paste your long url.">
                     </div>
                     <div class="form-group" v-if="error">
                         <div class="alert alert-danger" role="alert">
