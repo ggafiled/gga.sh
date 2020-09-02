@@ -15,7 +15,10 @@ const router = express.Router();
 const createAccountLimiter = rateLimit({
     windowMs: 2 * 60 * 1000, // 2 minutes
     max: 15, // start blocking after 5 requests
-    message: "Too many accounts created from this IP, please try again after an 2 minutes."
+    message: {
+        status: 429,
+        error: "Too many accounts created from this IP, please try again after an 2 minutes."
+    }
 });
 
 router.post('/', createAccountLimiter, async(req, res) => {

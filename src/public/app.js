@@ -7,23 +7,18 @@ new Vue({
             result: null,
             statusCode: null,
             shorturl: '',
+            isLoading: false
         }
     },
     methods: {
         log(text) {
-            console.log(text);
-        },
-        onSubmit() {
-            this.error = null;
-            this.result = null;
-            this.statusCode = null;
-            this.shorturl = '';
-
-            if (this.url.trim() == "") {
-                this.setErrormessage("url input can't be empty.");
-                document.getElementById("formGroupExampleInput2").focus();
-                return;
+            try {
+                console.log(text);
+            } catch (e) {
+                this.setErrormessage(e);
             }
+        },
+        onPostData() {
 
             this.log("[RN] submitForm was clicked.");
             fetch(window.location + "api/v1/urls", {
@@ -38,30 +33,40 @@ new Vue({
                 .then(response => {
                     this.log(`[RN] response status code is ${response.status} `);
                     this.statusCode = response.status;
-                    if (this.statusCode >= 500 && this.statusCode <= 599) {
-                        console.log("[RN] running in 500 condition");
-                        this.setErrormessage("Sorry server is closing already.");
-                        return;
+                    if (!response.ok) {
+                        console.log("[RN] running in  response not ok.");
+                        this.setErrormessage(response.statusText);
                     }
                     return response.json();
                 })
                 .then(data => {
-                    if (data) {
-                        console.log(`[DEBUG] ${data}`);
-                        this.result = data;
-                        this.shorturl = window.location + data.slug;
-                        this.log(`[RN] response data ${data}`);
+                    if (data.error) {
+                        throw new Error(data.error);
                     }
-
-                    if (this.statusCode == 429) {
-                        console.log(`[RN] running in 429 condition`);
-                        this.setErrormessage("Too many accounts created from this IP, please try again after an 2 minutes.");
-                    }
+                    this.result = data;
+                    this.shorturl = window.location + data.slug;
                 })
                 .catch(error => {
                     this.log(error);
-                    this.error = error;
+                    this.setErrormessage(error);
                 });
+        },
+        onSubmit() {
+            var vm = this;
+            if (this.url.trim() == "") {
+                this.setErrormessage("url input can't be empty.");
+                document.getElementById("formGroupExampleInput2").focus();
+                throw new Error("url input can't be empty.");
+            } else {
+                this.error = null;
+                this.result = null;
+                this.statusCode = null;
+                this.shorturl = '';
+                this.isLoading = true;
+                setTimeout(function() {
+                    vm.onPostData();
+                }, 2000);
+            }
         },
         showErrormessage() {
             console.log("[IV] dispatching fade-done event hide.");
@@ -72,7 +77,7 @@ new Vue({
             var vm = this;
             setTimeout(function() {
                 vm.showErrormessage();
-            }, 3000);
+            }, 5000);
         },
     },
     created() {
@@ -81,4 +86,23 @@ new Vue({
     mounted() {
         document.getElementById("formGroupExampleInput2").focus();
     },
+    watch: {
+        isLoading: function(val) {
+            if (val) {
+                JsLoadingOverlay.show({
+                    'spinnerIcon': 'pacman',
+                    'overlayOpacity': 0.8,
+                    'overlayBackgroundColor': '#9e9e9e',
+                    'spinnerColor': '#424242',
+                    'spinnerSize': '2x',
+
+                });
+                var vm = this;
+                setTimeout(function() {
+                    vm.isLoading = false;
+                    JsLoadingOverlay.hide();
+                }, 2000);
+            }
+        }
+    }
 });
