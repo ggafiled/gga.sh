@@ -28,6 +28,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+app.use(middlewares.setHeader);
+
 app.use("/", frontendRoute);
 
 app.use(middlewares.notFound);
