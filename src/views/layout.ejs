@@ -6,15 +6,16 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <%- body %>
+    <div>
+        <div id="app" class="wrapper">
+            <%- include("./partials/navbar.ejs") %>
+                <%- body %>
+        </div>
+        <%- script %>
     </div>
-
-    <%- script %>
+    <footer>
+        <%- include("./partials/footer.ejs") %>
+    </footer>
 </body>
-
-<footer>
-    <%- include("./partials/footer.ejs") %>
-</footer>
 
 </html>

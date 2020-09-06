@@ -30,6 +30,6 @@ router.get('/:id', async(req, res) => {
     } catch (err) {
         next(res.render("error403"));
     }
-})
+});
 
 module.exports = router;

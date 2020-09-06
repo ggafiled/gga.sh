@@ -18,14 +18,12 @@ app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.set("layout extractScripts", true);
 app.use(expressEjsLayouts);
-app.use('css', express.static(__dirname + "/public/css"));
-app.use('js', express.static(__dirname + "/public/js"));
-app.use('images', express.static(__dirname + "/public/images"));
-app.use(express.static(__dirname + "/public"));
+app.use('/css', express.static(__dirname + "/public/css"));
+app.use('/js', express.static(__dirname + "/public/js"));
+app.use('/images', express.static(__dirname + "/public/images"));
 
 app.use(morgan('dev'));
 app.use(helmet());
-app.use(cors());
 app.use(express.json());
 
 app.use(middlewares.setHeader);
