@@ -4,7 +4,7 @@ const resultspage = require('./results');
 
 const router = express.Router();
 
-router.use('/results', resultspage);
+// router.use('/results', resultspage);
 router.use('/', homepage);
 
 

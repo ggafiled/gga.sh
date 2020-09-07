@@ -2,14 +2,14 @@
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0px;
-    font-family: 'Bai Jamjuree', sans-serif;
+    font-family: "Bai Jamjuree", sans-serif;
 }
 
 body,
 html {
     height: 100%;
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 }
 
 .wrapper {
@@ -17,7 +17,7 @@ html {
 }
 
 .font-satisfy {
-    font-family: 'Satisfy', cursive, sans-serif;
+    font-family: "Satisfy", cursive, sans-serif;
 }
 
 :root {
@@ -154,6 +154,10 @@ a:hover {
 
 .card-text {
     word-wrap: break-word;
+}
+
+#resultpanel>.card>span+span {
+    justify-content: space-between;
 }
 
 

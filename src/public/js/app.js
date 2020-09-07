@@ -5,10 +5,9 @@ window.onload = function() {
             return {
                 url: '',
                 error: null,
-                result: null,
+                result: {},
                 statusCode: null,
                 shorturl: '',
-                isLoading: false,
             }
         },
         methods: {
@@ -22,6 +21,7 @@ window.onload = function() {
             onPostData() {
 
                 this.log("[RN] submitForm was clicked.");
+                $("#resultpanel").hide();
                 fetch(window.location + "api/v1/urls", {
                         method: "POST",
                         headers: {
@@ -46,40 +46,58 @@ window.onload = function() {
                         }
                         this.result = data;
                         this.shorturl = window.location + data.slug;
-                        this.url = this.shorturl;
+                        this.log("shortener url: " + this.shorturl);
+                        document.getElementById("inputlongurl").value = this.shorturl;
+                        $("#resultpanel").show("slow");
                     })
                     .catch(error => {
                         this.log(error);
                         this.setErrormessage(error);
+                        $("#resultpanel").hide("slow");
                     });
             },
             onSubmit() {
+                console.log("[RN] onSubmit.");
                 var vm = this;
-                if (this.url.trim() == "") {
+                vm.url = document.getElementById("inputlongurl").value;
+                this.log(document.getElementById("inputlongurl").value);
+                if (vm.url.trim() == "") {
                     this.setErrormessage("url input can't be empty.");
-                    document.getElementById("longurl").focus();
+                    document.getElementById("inputlongurl").focus();
                     throw new Error("url input can't be empty.");
-                } else {
-                    this.error = null;
-                    this.result = null;
-                    this.statusCode = null;
-                    this.shorturl = '';
-                    this.isLoading = true;
-                    setTimeout(function() {
-                        vm.onPostData();
-                    }, 2000);
                 }
+
+                if (!this.isUrlValid(vm.url)) {
+                    this.log('[RN] url is invalid pattern.');
+                    this.setErrormessage("url is invalid pattern.");
+                    document.getElementById("inputlongurl").focus();
+                    throw new Error("url is invalid pattern.");
+                }
+
+                this.clearValue();
+                setTimeout(function() {
+                    vm.onPostData();
+                }, 1000);
+
+            },
+            clearValue() {
+                this.error = null;
+                this.result = null;
+                this.statusCode = null;
+                this.shorturl = '';
             },
             showErrormessage() {
                 console.log("[IV] dispatching fade-done event hide.");
                 this.error = null;
+                $('#error').hide("slow");
             },
             setErrormessage(err) {
+                $('#error').show("slow");
                 this.error = err;
                 var vm = this;
                 setTimeout(function() {
                     vm.showErrormessage();
-                }, 5000);
+                }, 3000);
             },
             checkCookie_eu() {
 
@@ -116,8 +134,7 @@ window.onload = function() {
             },
             copyToClipboard() {
                 this.log('[RN] copyToClipboard copy shortener url already.');
-                let copyToClipboard = document.querySelector('#longurl');
-                let copyToClipboardShowArea = document.querySelector('#results');
+                let copyToClipboard = document.querySelector('#inputlongurl');
                 copyToClipboard.setAttribute('type', 'text');
                 copyToClipboard.select()
 
@@ -129,8 +146,13 @@ window.onload = function() {
 
                 /* unselect the range */
                 this.shorturl = '';
-                copyToClipboardShowArea.setAttribute('hidden', true);
+                $("#resultpanel").hide("slow");
+                this.clearValue();
                 window.getSelection().removeAllRanges();
+            },
+            isUrlValid(userInput) {
+                var regexQuery = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+                return regexQuery.test(userInput);
             },
         },
         created() {
@@ -140,28 +162,17 @@ window.onload = function() {
         mounted() {
             // document.querySelector("#longurl").focus();
         },
-        watch: {
-            isLoading: function(val) {
-                if (val) {
-                    JsLoadingOverlay.show({
-                        'spinnerIcon': 'pacman',
-                        'overlayOpacity': 0.8,
-                        'overlayBackgroundColor': '#9e9e9e',
-                        'spinnerColor': '#424242',
-                        'spinnerSize': '2x',
-
-                    });
-                    var vm = this;
-                    setTimeout(function() {
-                        vm.isLoading = false;
-                        JsLoadingOverlay.hide();
-                    }, 2000);
-                }
-            }
-        },
+        watch: {},
         computed: {
             checkCookieisEmpty: function() {
                 return this.checkCookie_eu();
+            },
+            canShowIfHasData: function() {
+                if (this.shorturl == null || this.shorturl.trim() == '' || this.shorturl == undefined) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
     });

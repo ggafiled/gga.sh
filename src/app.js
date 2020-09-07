@@ -22,13 +22,14 @@ app.use('/css', express.static(__dirname + "/public/css"));
 app.use('/js', express.static(__dirname + "/public/js"));
 app.use('/images', express.static(__dirname + "/public/images"));
 
-app.use(morgan('dev'));
+app.use(morgan('tiny'));
 app.use(helmet());
 app.use(express.json());
 
 app.use(middlewares.setHeader);
 
-app.use("/", frontendRoute);
+app.use('/', frontendRoute);
+app.use('/api/v1', api);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

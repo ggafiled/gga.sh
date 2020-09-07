@@ -37,6 +37,7 @@ router.post('/', createAccountLimiter, async(req, res) => {
         slug: slug,
         url: url,
         ipaddress: ip,
+        numberOfviews: 0,
         createdAt: Date.now().toLocaleString()
     });
     if (doc) {

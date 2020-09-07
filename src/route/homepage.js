@@ -11,24 +11,43 @@ router.get("/", (req, res) => {
     res.render("index");
 });
 
-router.get('/:id', async(req, res) => {
+router.get('/:id', async(req, res, next) => {
     const {
         id: slug
     } = req.params;
     try {
-        const url = await dbcollection.findOne({
+        const doc = await dbcollection.findOne({
             slug: slug
         });
-        if (url) {
-            res.redirect(url.url);
+        console.log(doc);
+        if (doc) {
+            let urlUpdate = await dbcollection.update({
+                slug: slug
+            }, {
+                $set: {
+                    numberOfviews: doc.numberOfviews + 1
+                }
+            }, {
+                new: true
+            });
+            console.log(urlUpdate);
+            res.redirect(doc.url)
+            next();
+        } else {
+            res.locals.pageData = {
+                title: `🔍 - Sorry Not Found For This Link ${slug} -`,
+                slug: slug
+            };
+            res.render("error403")
+            next();
         }
+    } catch (err) {
         res.locals.pageData = {
             title: `🔍 - Sorry Not Found For This Link ${slug} -`,
             slug: slug
         };
-        res.render("error403");
-    } catch (err) {
-        next(res.render("error403"));
+        res.render("error403")
+        next();
     }
 });
 

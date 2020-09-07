@@ -25,22 +25,31 @@
                 <h3 class=" text-center text-white pb-2">Paste the URL to be shortened</h3>
 
                 <div class="input-group">
-                    <input type="text" id="longurl" class="form-control input-lg p-4" v-model="url" @click.prevent="onSubmit()" placeholder="Enter your link here. " aria-label="Enter your link here. ">
+                    <input type="text" id="inputlongurl" class="form-control input-lg p-4" placeholder="Enter your link here. " aria-label="Enter your link here. ">
+                    <div id="copy" v-if="canShowIfHasData" class="input-group-append">
+                        <button class="btn btn-lg btn-secondary w-md-100 w-sm-100 w-xs-100 my-auto" @click.stop.prevent="copyToClipboard()">Copy</button>
+                    </div>
                 </div>
 
                 <div class="input-group">
-                    <button class="btn btn-secondary btn-lg btn-block text-white w-100" type="button ">Make it's
+                    <button class="btn btn-secondary btn-lg btn-block text-white w-100" type="button " @click.stop.prevent="onSubmit()">Make it's
                         Shortener</button>
                 </div>
 
-                <div v-if="isLoading" id="results" class="input-group">
+                <div id="error" class="input-group" style="display: none;">
+                    <div class="alert alert-danger text-capitalize" role="alert">
+                        {{ error }}
+                    </div>
+                </div>
+
+                <div id="resultpanel" class="input-group" style="display: none;">
                     <div class="card w-100 d-flex flex-lg-row flex-md-column flex-sm-column flex-xs-column p-3 flex-wrap justify-content-center">
-                        <p id="long_url" class="text-justify text-wrap my-auto">
+                        <span id="long_url" class="text-wrap my-auto mx-auto w-100">
                             {{ result.url }}
-                        </p>
-                        <p class="text-justify text-wrap my-auto">
-                            <a id="short_url" href="https://bit.ly/3bGKfIU" target="_blank" title="Shortened URL for https://getbootstrap.com/docs/4.0/components/navbar/">{{ shorturl }}</a>
-                        </p>
+                        </span>
+                        <span class="text-justify text-wrap my-auto">
+                            <a id="short_url" :href="shorturl" target="_blank" title="Shortened URL for">{{ shorturl }}</a>
+                        </span>
                         <button class="btn btn-secondary w-md-100 w-sm-100 w-xs-100 my-auto" @click.stop.prevent="copyToClipboard()">Copy</button>
                         </span>
                     </div>
