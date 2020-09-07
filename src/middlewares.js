@@ -25,7 +25,7 @@ function setHeader(req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Content-Security-Policy', "script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://apis.google.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com 'unsafe-eval' 'unsafe-inline';img-src 'self'; style-src 'self' https://stackpath.bootstrapcdn.com https://unpkg.com https://fonts.googleapis.com 'unsafe-inline';base-uri 'self';form-action 'self';font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com");
+    res.setHeader('Content-Security-Policy', "script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://apis.google.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com https://fonts.googleapis.com 'unsafe-eval' 'unsafe-inline';img-src 'self'; style-src 'self' https://stackpath.bootstrapcdn.com https://unpkg.com https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline';base-uri 'self';form-action 'self';font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com");
     next();
 }
 

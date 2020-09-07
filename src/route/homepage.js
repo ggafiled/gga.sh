@@ -6,7 +6,7 @@ const dbcollection = db.get("ggaurls");
 
 router.get("/", (req, res) => {
     res.locals.pageData = {
-        title: "🎉🍲 - Shortener URL [gga-sh] -"
+        title: "gga.sh | - Shortener URL 🎉🍲 -"
     };
     res.render("index");
 });

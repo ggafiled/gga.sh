@@ -46,6 +46,7 @@ window.onload = function() {
                         }
                         this.result = data;
                         this.shorturl = window.location + data.slug;
+                        this.url = this.shorturl;
                     })
                     .catch(error => {
                         this.log(error);
@@ -97,6 +98,9 @@ window.onload = function() {
                 exdate.setDate(exdate.getDate() + exdays);
                 var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
                 document.cookie = c_name + "=" + c_value + "; path=/";
+                gsap.to('#cookie-policy', {
+                    autoAlpha: 0
+                });
                 $('#cookie-policy').hide("slow");
             },
             getCookie_eu(c_name) {
@@ -110,12 +114,32 @@ window.onload = function() {
                     }
                 }
             },
+            copyToClipboard() {
+                this.log('[RN] copyToClipboard copy shortener url already.');
+                let copyToClipboard = document.querySelector('#longurl');
+                let copyToClipboardShowArea = document.querySelector('#results');
+                copyToClipboard.setAttribute('type', 'text');
+                copyToClipboard.select()
+
+                try {
+                    var successful = document.execCommand('copy');
+                } catch (err) {
+                    alert("Oops, unable to copy");
+                }
+
+                /* unselect the range */
+                this.shorturl = '';
+                copyToClipboardShowArea.setAttribute('hidden', true);
+                window.getSelection().removeAllRanges();
+            },
         },
         created() {
             this.log("[VM] starting project.");
             this.checkCookie_eu();
         },
-        mounted() {},
+        mounted() {
+            // document.querySelector("#longurl").focus();
+        },
         watch: {
             isLoading: function(val) {
                 if (val) {

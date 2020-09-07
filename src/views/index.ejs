@@ -6,59 +6,61 @@
 <section id="home" class="d-flex align-items-center position-relative container-fluid vh-100 bg-white">
     <div class="container-fluid container-fluid-max">
         <div class="row">
-            <div class="col my-auto">
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12 my-auto justify-content-center">
                 <h1>Short links, big results</h1>
                 <h2>A URL shortener built with powerful tools to help you grow and protect your brand.
                 </h2>
             </div>
-            <div class="col my-auto">
-                <img src="images/landing.jpg" draggable="false">
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12 my-auto mx-auto">
+                <img class="img-fluid" src="images/landing.jpg" draggable="false">
             </div>
         </div>
     </div>
 </section>
 
 <section class="d-flex align-items-center position-relative container-fluid" style="background-color: #000063;min-height: 180px;">
-    <div class="container-fluid container-fluid-max">
-        <div class="row justify-content-between">
-            <h3 class=" text-center my-auto">Paste the URL to be shortened</h3>
-            <div class="input-group mb-3 my-auto">
-                <input type="text " id="longurl " class="form-control input-lg " placeholder="Enter your link here. " aria-label="Enter your link here. ">
-                <div class="input-group-append ">
-                    <button class="btn btn-outline-success " type="button ">Make it's Shorten</button>
-                </div>
-            </div>
-            <p class="text-center my-auto">
-                gga-sh.xyz is a free tool to shorten a URL or reduce a link. Use our URL Shortener to create a shortened link making it easy to remember.
-            </p>
-        </div>
-    </div>
-</section>
+    <div class="container-fluid container-fluid-max p-3">
+        <div class="container pl-5 pr-5">
+            <div class="row justify-content-around" style="justify-content: space-around !important;">
+                <h3 class=" text-center text-white pb-2">Paste the URL to be shortened</h3>
 
-<!-- <div class="container mt-lg-2 p-0 mb-lg-5 " style="max-width: 46rem; ">
-        <div class="card bg-white mb-3 ">
-            <div class="card-body ">
-                <h3 class="text-center ">Paste the URL to be shortened</h3>
-                <div class="input-group mb-3 ">
-                    <input type="text " id="longurl " class="form-control input-lg " placeholder="Enter your link here. " aria-label="Enter your link here. ">
-                    <div class="input-group-append ">
-                        <button class="btn btn-outline-success " type="button ">Make it's Shorten</button>
+                <div class="input-group">
+                    <input type="text" id="longurl" class="form-control input-lg p-4" v-model="url" @click.prevent="onSubmit()" placeholder="Enter your link here. " aria-label="Enter your link here. ">
+                </div>
+
+                <div class="input-group">
+                    <button class="btn btn-secondary btn-lg btn-block text-white w-100" type="button ">Make it's
+                        Shortener</button>
+                </div>
+
+                <div v-if="isLoading" id="results" class="input-group">
+                    <div class="card w-100 d-flex flex-lg-row flex-md-column flex-sm-column flex-xs-column p-3 flex-wrap justify-content-center">
+                        <p id="long_url" class="text-justify text-wrap my-auto">
+                            {{ result.url }}
+                        </p>
+                        <p class="text-justify text-wrap my-auto">
+                            <a id="short_url" href="https://bit.ly/3bGKfIU" target="_blank" title="Shortened URL for https://getbootstrap.com/docs/4.0/components/navbar/">{{ shorturl }}</a>
+                        </p>
+                        <button class="btn btn-secondary w-md-100 w-sm-100 w-xs-100 my-auto" @click.stop.prevent="copyToClipboard()">Copy</button>
+                        </span>
                     </div>
                 </div>
-                <p class="text-center ">
+                <p class="text-center text-white pt-2">
                     gga-sh.xyz is a free tool to shorten a URL or reduce a link. Use our URL Shortener to create a shortened link making it easy to remember.
                 </p>
             </div>
         </div>
     </div>
-    <div class="new_footer_top ">
-        <div class="container ">
-            <div class="row ">
+</section>
 
-            </div>
+<div class="new_footer_top ">
+    <div class="container ">
+        <div class="row ">
+
         </div>
-        <div class="footer_bg ">
-            <div class="footer_bg_one "></div>
-            <div class="footer_bg_two "></div>
-        </div>
-    </div> -->
+    </div>
+    <div class="footer_bg ">
+        <div class="footer_bg_one "></div>
+        <div class="footer_bg_two "></div>
+    </div>
+</div>

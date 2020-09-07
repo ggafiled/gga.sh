@@ -1,10 +1,14 @@
-<div class="sticky-top">
+<header class="sticky-top">
     <%- include("./cookie-directive.ejs") %>
-        <nav class="navbar navbar-expand-lg navbar-light align-items-start bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <div class="container">
-                <a class="navbar-brand align-items-start" href="/">
-                    <span class="d-inline-block align-top font-satisfy h3" style="color: #ad1457">gga.sh</span>
+                <a class="navbar-brand" href="/" style="left: 0; top: 0; margin-left: 0;">
+                    <span class="font-satisfy h3" style="color: #ad1457; font-weight: 400px;font-size: 2.1rem;">gga.sh</span>
                 </a>
+                <form class="form-inline my-2 my-lg-0" style="right: 0; top: 0; margin-right: 0;">
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" @click.prevent="">Get
+                    Start</button>
+                </form>
             </div>
         </nav>
-</div>
+</header>
