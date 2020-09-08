@@ -46,7 +46,7 @@ window.onload = function() {
                         }
                         this.result = data;
                         this.log(JSON.stringify(psl.parse(String(window.location))));
-                        this.shorturl = psl.parse(String(window.location)).domain + "/" + data.slug
+                        this.shorturl = data.slug
                         this.log("shortener url: " + this.shorturl);
                         document.getElementById("inputlongurl").value = this.shorturl;
                         $("#resultpanel").show("slow");
