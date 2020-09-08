@@ -43,12 +43,13 @@
                 </div>
 
                 <div id="resultpanel" class="input-group" style="display: none;">
-                    <div class="card w-100 d-flex flex-lg-row flex-md-column flex-sm-column flex-xs-column p-3 flex-wrap justify-content-center">
-                        <span id="long_url" class="text-wrap my-auto mx-auto w-100">
+                    <div class="card w-100 d-flex flex-lg-row flex-md-column flex-sm-column flex-xs-column p-3 justify-content-center">
+                        <span id="long_url" class="text-justify my-auto mx-auto">
                             {{ result.url }}
                         </span>
                         <span class="text-justify text-wrap my-auto">
-                            <a id="short_url" :href="shorturl" target="_blank" title="Shortened URL for">{{ shorturl }}</a>
+                            <a id="short_url" :href="shorturl" target="_blank"
+                                title="Shortened URL for">{{ shorturl }}</a>
                         </span>
                         <button class="btn btn-secondary w-md-100 w-sm-100 w-xs-100 my-auto" @click.stop.prevent="copyToClipboard()">Copy</button>
                         </span>
