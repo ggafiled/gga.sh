@@ -48,7 +48,7 @@ window.onload = function() {
                         this.log(JSON.stringify(psl.parse(String(window.location))));
                         this.shorturl = data.slug
                         this.log("shortener url: " + this.shorturl);
-                        document.getElementById("inputlongurl").value = this.shorturl;
+                        document.getElementById("inputlongurl").value = "gga-sh.xyz/" + this.shorturl;
                         $("#resultpanel").show("slow");
                     })
                     .catch(error => {
